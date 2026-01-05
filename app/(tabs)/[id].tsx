@@ -4,7 +4,7 @@ import { MaterialIconSymbol } from "@/components/ui/icon-symbol";
 import { useTabs } from "@/hooks/use-tabs";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { PlatformPressable } from "@react-navigation/elements";
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Button,
@@ -19,10 +19,12 @@ import WebView from "react-native-webview";
 
 const HOME_URL = "https://ezema.dev";
 
-export default function HomeScreen() {
+export default function BrowserTabScreen() {
+  const { id } = useLocalSearchParams();
+
   const { activeTabId, tabs, addTab, updateTab } = useTabs();
 
-  const activeTab = tabs.find((tab) => tab.id === activeTabId);
+  const activeTab = tabs.find((tab) => tab.id === id);
   const historyIndex = activeTab?.history?.index ?? 0;
   const history = activeTab?.history?.entries ?? [];
   const url = history[historyIndex];
